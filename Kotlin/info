@@ -1,0 +1,2 @@
+kotlinc ex1.kt -include-runtime -d ex1.jar
+java -jar ex1.jar

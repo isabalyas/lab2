@@ -1,0 +1,2 @@
+tsc --target ES5 ex1.ts
+node ex1.js

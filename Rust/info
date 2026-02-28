@@ -1,0 +1,2 @@
+rustc ex1.rs
+./ex1

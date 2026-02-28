@@ -1,0 +1,2 @@
+mcs -out:ex1.exe ex1.cs                                                                                    ✔
+mono ex1.exe

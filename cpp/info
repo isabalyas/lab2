@@ -1,0 +1,2 @@
+g++ ex1.cpp -o ex1
+./ex1

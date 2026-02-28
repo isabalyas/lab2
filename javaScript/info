@@ -1,0 +1,2 @@
+npm install prompt-sync
+node ex1.js

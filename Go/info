@@ -1,0 +1,2 @@
+go build ex1.go
+./ex1

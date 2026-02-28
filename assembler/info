@@ -1,0 +1,2 @@
+gcc -o ex ex.s -no-pie
+./ex

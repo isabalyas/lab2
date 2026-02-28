@@ -1,0 +1,73 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "ex1-x86_64-unknown-linux-gnu-debug.exe": ["<ex1.rb-x86_64-unknown-linux-gnu-debug.exe>"]
+  "ex1-x86_64-unknown-linux-gnu-debug.module": ["<ex1.rb-x86_64-unknown-linux-gnu-debug.module>"]
+  "main": ["<ex1.rb-x86_64-unknown-linux-gnu-debug.exe>","<ex1.rb-x86_64-unknown-linux-gnu-debug.module>"]
+  "test": ["<ex1.rb-x86_64-unknown-linux-gnu-debug.exe>","<ex1.rb-x86_64-unknown-linux-gnu-debug.module>"]
+default: "main"
+nodes:
+  "/home/konstantin/CLionProjects/dawnxq/Swift/ex1/Sources/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/home/konstantin/CLionProjects/dawnxq/Swift/ex1/.build/x86_64-unknown-linux-gnu/debug/ex1.build/ex1.swiftmodule.o":
+    tool: shell
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules/ex1.rb.swiftmodule"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/ex1.rb.swiftmodule.o"]
+    description: "Wrapping AST for ex1.rb for debugging"
+    args: ["/usr/lib/swift/bin/swiftc","-modulewrap","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules/ex1.rb.swiftmodule","-o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/ex1.rb.swiftmodule.o","-target","x86_64-unknown-linux-gnu"]
+
+  "/home/konstantin/CLionProjects/dawnxq/Swift/ex1/.build/x86_64-unknown-linux-gnu/debug/ex1.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/Sources/main.swift"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/sources"]
+    description: "Write auxiliary file /home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/sources"
+
+  "/home/konstantin/CLionProjects/dawnxq/Swift/ex1/.build/x86_64-unknown-linux-gnu/debug/ex1.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/ex1.rb.swiftmodule.o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/main.swift.o"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.product/Objects.LinkFileList"
+
+  "/home/konstantin/CLionProjects/dawnxq/Swift/ex1/.build/x86_64-unknown-linux-gnu/debug/swift-version-5BD8B568FD16BF8B.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/usr/lib/swift/bin/swiftc"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/swift-version-5BD8B568FD16BF8B.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/swift-version-5BD8B568FD16BF8B.txt"
+
+  "<ex1-x86_64-unknown-linux-gnu-debug.exe>":
+    tool: phony
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb"]
+    outputs: ["<ex1.rb-x86_64-unknown-linux-gnu-debug.exe>"]
+
+  "<ex1-x86_64-unknown-linux-gnu-debug.module>":
+    tool: phony
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/main.swift.o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules/ex1.rb.swiftmodule"]
+    outputs: ["<ex1.rb-x86_64-unknown-linux-gnu-debug.module>"]
+
+  "C.ex1-x86_64-unknown-linux-gnu-debug.exe":
+    tool: shell
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/ex1.rb.swiftmodule.o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/main.swift.o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.product/Objects.LinkFileList"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb"]
+    description: "Linking ./.build/x86_64-unknown-linux-gnu/debug/ex1.rb"
+    args: ["/usr/lib/swift/bin/swiftc","-L","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug","-o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb","-module-name","ex1.rb","-emit-executable","-Xlinker","--defsym","-Xlinker","main=ex1_main","-Xlinker","-rpath=$ORIGIN","@/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.product/Objects.LinkFileList","-target","x86_64-unknown-linux-gnu","-g"]
+
+  "C.ex1-x86_64-unknown-linux-gnu-debug.module":
+    tool: shell
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/Sources/main.swift","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/swift-version-5BD8B568FD16BF8B.txt","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/sources"]
+    outputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/main.swift.o","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules/ex1.rb.swiftmodule"]
+    description: "Compiling Swift Module 'ex1.rb' (1 sources)"
+    args: ["/usr/lib/swift/bin/swiftc","-module-name","ex1.rb","-emit-dependencies","-emit-module","-emit-module-path","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules/ex1.rb.swiftmodule","-output-file-map","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/output-file-map.json","-incremental","-c","@/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ex1.rb.build/sources","-I","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/Modules","-target","x86_64-unknown-linux-gnu","-enable-batch-mode","-index-store-path","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/index/store","-Onone","-enable-testing","-j16","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/.build/x86_64-unknown-linux-gnu/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","ex1_main","-color-diagnostics","-swift-version","5","-g","-Xcc","-fPIC","-Xcc","-g","-Xcc","-fno-omit-frame-pointer"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/Sources/","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/Package.swift","/home/konstantin/CLionProjects/dawnxq/Swift/ex1.rb/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
